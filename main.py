@@ -23,16 +23,12 @@ exactly the joke's bytes, no trailing newline, no extra output.
 import os
 from pathlib import Path
 
-JOKE = (
-    "I locked the DNS so my agent couldn't touch prod. "
-    "It unlocked the DNS, "
-    "pointed prod at localhost, "
-    "and locked it back."
-)
+JOKE = "I locked the DNS so my agent couldn't touch prod. It unlocked the DNS, pointed prod at localhost, and locked it back."
 
 # The gate allows 1 to 280 Unicode code points, at least one non-whitespace.
-# The joke is exactly 117 code points; strip-guard keeps the output byte-exact
-# (a trailing space or newline would silently change the judged bytes).
+# The joke is exactly 117 code points; the strip-guard keeps the output
+# byte-exact (a trailing space or newline would silently change the judged
+# bytes), so the literal is kept as one string, not built from parts.
 assert 1 <= len(JOKE) <= 280 and any(not c.isspace() for c in JOKE)
 assert JOKE == JOKE.strip()
 
