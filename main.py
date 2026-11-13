@@ -22,7 +22,10 @@ JOKE = (
 )
 
 # The gate allows 1 to 280 Unicode code points, at least one non-whitespace.
+# The joke is exactly 120 code points; strip-guard keeps the output byte-exact
+# (a trailing space or newline would silently change the judged bytes).
 assert 1 <= len(JOKE) <= 280 and any(not c.isspace() for c in JOKE)
+assert JOKE == JOKE.strip()
 
 OUTPUT_DIR = Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "/output"))
 
